@@ -1,6 +1,6 @@
 <img src="docs/images/Cogni_logo.png" ald="Cogni Logo" width="200">
 
-# Cogni: A Framework in Development for Kitsune
+# Cogni: An AI Framework Written in C++
 ## Overview
 
 Cogni is an ongoing project, developed concurrently with another project named Kitsune. This framework, written in C++, is designed to serve the specific needs of Kitsune. The primary goal is to develop a deep understanding of the algorithms involved by engaging directly in their creation and refinement.
