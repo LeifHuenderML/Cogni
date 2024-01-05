@@ -31,7 +31,7 @@
 
 
 namespace nn{
-    Conv2D Conv2D(){
+    Conv2D createConv2D(){
         return Conv2D();
     }
 }
