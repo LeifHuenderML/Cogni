@@ -1,17 +1,9 @@
 /**
- * @file nn.cpp
+ * @file nn.h
  * @author Leif Huender
- * @brief This is the main part of the Cogni library. Initially, I wanted to 
- * write a Go program named 'Kitsune' in C++ from scratch. During this process,
- * I realized the need for a class to access common neural network functions 
- * like convolution layers, SGD, etc. This library serves that purpose and will
- * eventually branch into its own repository for future reuse.I claim no 
- * intellectual creativity in the naming conventions or algorithms used. My 
- * approach mirrors the naming conventions similar to those in PyTorch. 
- * For now, this is as bare-bones as possible, until I further develop it into 
- * its own standalone project.
+ * @brief 
  * @version 0.1
- * @date 2024-01-03
+ * @date 2024-01-05
  * 
  * @copyright Copyright (c) 2024 Leif Huender
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -32,3 +24,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+#ifndef NN_H
+#define NN_H
+
+#include "convolution_layers/conv2d.h"
+
+
+namespace nn{
+    Conv2D Conv2D(){
+        return Conv2D();
+    }
+}
+
+#endif
