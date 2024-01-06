@@ -1,7 +1,7 @@
 /**
  * @file conv1d.cpp
  * @author Leif Huender
- * @brief 
+ * @brief Applies a 1D convolution over an input signal composed of several input planes.
  * @version 0.1
  * @date 2024-01-05
  * 
@@ -24,3 +24,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
+#include "conv1d.h"
+
+Conv1D::Conv1D(){
+
+}

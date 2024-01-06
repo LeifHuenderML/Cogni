@@ -23,4 +23,3 @@ The development of Cogni is inherently linked to the needs of Kitsune. As such, 
 The scientific and development community is invited to engage with Cogni. Contributions, whether in the form of feedback, collaboration, or usage, are valuable to the continuous evolution of this framework.
 
 Cogni represents an ongoing journey in the realms of algorithm development and application, driven by a scientific and methodical approach.
-

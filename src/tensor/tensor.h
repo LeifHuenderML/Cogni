@@ -1,7 +1,7 @@
 /**
- * @file conv1d.h
+ * @file tensor.h
  * @author Leif Huender
- * @brief Applies a 1D convolution over an input signal composed of several input planes.
+ * @brief 
  * @version 0.1
  * @date 2024-01-05
  * 
@@ -25,15 +25,22 @@
  * THE SOFTWARE.
  */
 
-#ifndef CONV1D_H
-#define CONV1D_H
-class Conv1D{
-private:
-    Tensor weight;
-    bool bias;
+#ifndef TENSOR_H
+#define TENSOR_H
+#include <vector>
 
+class Tensor{
+private:
+
+    std::vector<float> data;
+    std::vector<size_t> dimensions;
+    size_t totalSize(const std::vector<size_t>& dims);
+    size_t index(const std::vector<size_t>& dims);
 public:
-    Conv1D(int in_channels, int out_channels, int kernel_size, int stride, int padding, std::string padding_mode, int dilation, int groups, bool bias);
+    float getElement(const std::vector<size_t>& dims);
+    void setElement(float element, const std::vector<size_t>& dims);
+    void fill(std::vector<float> input);
+    Tensor(std::vector<size_t> dims);
 };
 
 #endif
