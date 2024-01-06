@@ -27,13 +27,7 @@
 #ifndef NN_H
 #define NN_H
 
-#include "convolution_layers/conv2d.h"
-
-
-namespace nn{
-    Conv2D createConv2D(){
-        return Conv2D();
-    }
-}
+#include "tensor/tensor.h"
+#include "convolution_layers/conv1d.h"
 
 #endif

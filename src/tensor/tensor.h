@@ -29,6 +29,7 @@
 #define TENSOR_H
 #include <vector>
 
+namespace nn {
 class Tensor{
 private:
 
@@ -42,5 +43,6 @@ public:
     void fill(std::vector<float> input);
     Tensor(std::vector<size_t> dims);
 };
+}
 
 #endif

@@ -26,7 +26,7 @@
  */
 
 #include "tensor.h"
-
+using namespace nn;
 /**
  * @brief Computes the index 'I' in the 1D array (vector) of data that corresponds to a given set of indices in an n-dimensional tensor.
  * The index 'I' is calculated using the formula: 

@@ -27,13 +27,21 @@
 
 #ifndef CONV1D_H
 #define CONV1D_H
+#include "nn.h"
+#include <string>
+namespace nn{
+
 class Conv1D{
 private:
-    Tensor weight;
+    int inChannels, outChannels, kernelSize, stride, padding, dilation, goups, bias;
+    std::string paddingMode;
+
     bool bias;
 
 public:
-    Conv1D(int in_channels, int out_channels, int kernel_size, int stride, int padding, std::string padding_mode, int dilation, int groups, bool bias);
+    Conv1D(int inChannels, int outChannels, int kernelSize, int stride, int padding, std::string paddingMode, int dilation, int groups, bool bias);
+    std::vector<float> apply (const std::vector<float>& input);
 };
 
+}
 #endif

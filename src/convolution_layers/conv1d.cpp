@@ -26,7 +26,37 @@
  */
 
 #include "conv1d.h"
+using namespace nn;
+Conv1D::Conv1D(int inChannels, int outChannels, int kernel_size, int stride, int padding, std::string padding_mode, int dilation, int groups, bool bias){
 
-Conv1D::Conv1D(){
+}
+
+/**
+ * @brief 
+ * The mathematical formula for a 1D convolutional layer (Conv1D) typically involves sliding a filter 
+ * (or kernel) over a one-dimensional input signal and computing the dot product of the filter and the input at
+ *  each position. This process can be described by the following formula:
+
+y(t)=∑k=0K−1x(t+k)⋅w(k)+by(t)=∑k=0K−1​x(t+k)⋅w(k)+b
+
+Where:
+
+    y(t)y(t) is the output of the convolution at time step tt.
+    x(t+k)x(t+k) is the input signal at time step t+kt+k.
+    w(k)w(k) is the weight of the kernel at position kk.
+    bb is the bias term (a constant added to each output).
+    KK is the size of the kernel (the number of weights in the filter).
+
+In this formula, the kernel is applied to each possible position in the input signal by sliding it across the signal. For each position, the dot product between the kernel weights and the corresponding segment of the input signal is calculated. This dot product is then summed with the bias term to produce the output at that position.
+
+Note that the behavior of the convolution can be affected by factors such as:
+
+    Stride: The number of steps the filter moves at each step. A stride greater than 1 skips input values.
+    Padding: Adding zeros (or other values) to the input signal to control the size of the output or to allow the kernel to be applied at the edges of the input.
+ * 
+ * 
+ * @param input 
+ */
+std::vector<float> Conv1D::apply(const std::vector<float>& input){
 
 }
