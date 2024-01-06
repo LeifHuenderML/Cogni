@@ -27,7 +27,8 @@
 
 #include "conv1d.h"
 using namespace nn;
-Conv1D::Conv1D(int inChannels, int outChannels, int kernel_size, int stride, int padding, std::string padding_mode, int dilation, int groups, bool bias){
+Conv1D::Conv1D(int inChannels, int outChannels, int kernelSize, int stride, int padding, std::string paddingMode, int dilation, int groups, bool bias){
+    
 
 }
 
@@ -37,17 +38,19 @@ Conv1D::Conv1D(int inChannels, int outChannels, int kernel_size, int stride, int
  * (or kernel) over a one-dimensional input signal and computing the dot product of the filter and the input at
  *  each position. This process can be described by the following formula:
 
-y(t)=∑k=0K−1x(t+k)⋅w(k)+by(t)=∑k=0K−1​x(t+k)⋅w(k)+b
+y(t)=∑k=0K−1x(t+k)⋅w(k)+b
 
 Where:
 
-    y(t)y(t) is the output of the convolution at time step tt.
-    x(t+k)x(t+k) is the input signal at time step t+kt+k.
+    y(t)) is the output of the convolution at time step tt.
+    x(t+k) is the input signal at time step t+kt+k.
     w(k)w(k) is the weight of the kernel at position kk.
     bb is the bias term (a constant added to each output).
     KK is the size of the kernel (the number of weights in the filter).
 
-In this formula, the kernel is applied to each possible position in the input signal by sliding it across the signal. For each position, the dot product between the kernel weights and the corresponding segment of the input signal is calculated. This dot product is then summed with the bias term to produce the output at that position.
+In this formula, the kernel is applied to each possible position in the input signal by sliding 
+it across the signal. For each position, the dot product between the kernel weights and the corresponding
+ segment of the input signal is calculated. This dot product is then summed with the bias term to produce the output at that position.
 
 Note that the behavior of the convolution can be affected by factors such as:
 
@@ -57,6 +60,9 @@ Note that the behavior of the convolution can be affected by factors such as:
  * 
  * @param input 
  */
-std::vector<float> Conv1D::apply(const std::vector<float>& input){
+Tensor Conv1D::apply(const Tensor& input){
 
+    inLength = static_cast<int>(input.dimensions[1]);
+    outLength = ((inLength + 2 * padding - dilation * (kernelSize - 1) -1) / stride) + 1;
+    Tensor output({input.dimensions[0], static_cast<size_t>(outChannels), static_cast<size_t>(outLength)})
 }

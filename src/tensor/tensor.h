@@ -34,10 +34,11 @@ class Tensor{
 private:
 
     std::vector<float> data;
-    std::vector<size_t> dimensions;
+
     size_t totalSize(const std::vector<size_t>& dims);
     size_t index(const std::vector<size_t>& dims);
 public:
+    std::vector<size_t> dimensions;
     float getElement(const std::vector<size_t>& dims);
     void setElement(float element, const std::vector<size_t>& dims);
     void fill(std::vector<float> input);

@@ -33,13 +33,14 @@ namespace nn{
 
 class Conv1D{
 private:
-    int inChannels, outChannels, kernelSize, stride, padding, dilation, goups, bias;
+    int inChannels, outChannels, kernelSize, stride, padding, dilation, goups, bias, outLength, inLength;
     std::string paddingMode;
-
+    Tensor weight;
+    Tensor biasT;
     bool bias;
 
 public:
-    Conv1D(int inChannels, int outChannels, int kernelSize, int stride, int padding, std::string paddingMode, int dilation, int groups, bool bias);
+    Conv1D(int inChannels, int outChannels, int kernelSize, int stride=1, int padding=0, std::string paddingMode="zeros", int dilation=1, int groups=1, bool bias=true);
     std::vector<float> apply (const std::vector<float>& input);
 };
 
