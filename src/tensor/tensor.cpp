@@ -56,6 +56,17 @@ size_t Tensor::index(const std::vector<size_t>& dims){
 }
 
 /**
+ * @brief default constructor for a Tensor object
+ * 
+ */
+Tensor::Tensor(){}
+
+void Tensor::resize(const std::vector<size_t>& dims){
+    dimensions = dims;
+    data.resize(totalSize(dims));
+}
+
+/**
  * @brief returns the element at the specified dimension, 
  * no need to error check because index function handles the error checking
  * 

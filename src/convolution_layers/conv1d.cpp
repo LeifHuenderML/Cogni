@@ -64,5 +64,7 @@ Tensor Conv1D::apply(const Tensor& input){
 
     inLength = static_cast<int>(input.dimensions[1]);
     outLength = ((inLength + 2 * padding - dilation * (kernelSize - 1) -1) / stride) + 1;
-    Tensor output({input.dimensions[0], static_cast<size_t>(outChannels), static_cast<size_t>(outLength)})
+    Tensor output({input.dimensions[0], static_cast<size_t>(outChannels), static_cast<size_t>(outLength)});
+    
+
 }

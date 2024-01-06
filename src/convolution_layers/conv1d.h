@@ -41,7 +41,7 @@ private:
 
 public:
     Conv1D(int inChannels, int outChannels, int kernelSize, int stride=1, int padding=0, std::string paddingMode="zeros", int dilation=1, int groups=1, bool bias=true);
-    std::vector<float> apply (const std::vector<float>& input);
+    Tensor apply(const Tensor& input);
 };
 
 }
