@@ -38,7 +38,7 @@ class Init{
     void truncatedNormalInitialization(Tensor& t,T stddev, T mean = 0, T aBound = -2, T bBound = 2){
         std::normal_distribution<T> dist(mean, stddev);
 
-        for(T& element : t.data){
+        for(T& element : t){
             do{
                 element = dist(generator);
             }
@@ -54,6 +54,7 @@ class Init{
     Init(){
         seedRandom();
     }
+    ~Init(){};
 };
 }
 #endif

@@ -32,8 +32,15 @@ namespace nn{
 template<typename T>
 class Conv1D{
 private:
-    int inChannels, outChannels, kernelSize, stride, padding, dilation, 
-        goups, outLength, inLength;
+    int inChannels, 
+        outChannels, 
+        kernelSize, 
+        stride, 
+        padding, 
+        dilation, 
+        goups, 
+        outLength, 
+        inLength;
     std::string paddingMode;
     Tensor weight;
     Tensor biasT;
@@ -58,7 +65,42 @@ public:
       dilation(dilation), 
       groups(groups), 
       bias(bias) {
+
+    }
+    Tensor apply(Tensor& input) {
+        weight.resize({outChannels, inChannels / groups, kernelSize});
+        Init weightInit;
+        weightInit.truncatedNormalInitialization(weight);
         
+        if (bias) {
+            biasT.resize({outChannels});
+            biasT.fill(0);
+        }
+        
+        outLength = ((input.shape[2] + 2 * padding - dilation * (kernelSize - 1) - 1) / stride) + 1;
+        Tensor output({input.shape[0], outChannels, outLength});
+
+        for(int n = 0; n < input.shape[0]; ++n) {
+            for(int oc = 0; oc < outChannels; ++oc) {
+                for(int i = 0; i < outLength; ++i) {
+                    T sum = 0;
+
+                    for(int k = 0; k < kernelSize; ++k) {
+                        int inputIndex = i * stride + k - padding;
+                        if(inputIndex >= 0 && inputIndex < input.shape[2]) {
+                            for(int ic = 0; ic < inChannels; ++ic) {
+                                sum += input({n, ic, inputIndex}) * weight({oc, ic, k});
+                            }
+                        }
+                    }
+                    if(bias) {
+                        sum += biasT({oc});  
+                    }
+                    output({n, oc, i}) = sum;
+                }
+            }
+        }
+        return output;
     }
 };
 
