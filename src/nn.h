@@ -29,5 +29,7 @@
 
 #include "tensor/tensor.h"
 #include "convolution_layers/conv1d.h"
+#include "init/init.h"
+
 
 #endif

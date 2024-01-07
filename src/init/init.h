@@ -1,9 +1,10 @@
 /**
- * @file conv1d.h
+ * @file init.h
  * @author Leif Huender
- * @brief Applies a 1D convolution over an input signal composed of several input planes.
+ * @brief helper functions for initializing weigths of a Tensor
+ * for example Truncated normal initializttion and glorot ..
  * @version 0.1
- * @date 2024-01-05
+ * @date 2024-01-06
  * 
  * @copyright Copyright (c) 2024 Leif Huender
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -25,42 +26,34 @@
  * THE SOFTWARE.
  */
 
-#ifndef CONV1D_H
-#define CONV1D_H
-#include <string>
+#ifndef INIT_H 
+#define INIT_H
+
+#include <random>
+#include <chrono>
+
 namespace nn{
 template<typename T>
-class Conv1D{
-private:
-    int inChannels, outChannels, kernelSize, stride, padding, dilation, 
-        goups, outLength, inLength;
-    std::string paddingMode;
-    Tensor weight;
-    Tensor biasT;
-    bool bias;
+class Init{
+    void truncatedNormalInitialization(Tensor& t,T stddev, T mean = 0, T aBound = -2, T bBound = 2){
+        std::normal_distribution<T> dist(mean, stddev);
 
-public:
-    Conv1D(int inChannels, 
-       int outChannels, 
-       int kernelSize, 
-       int stride = 1, 
-       int padding = 0, 
-       std::string paddingMode = "zeros", 
-       int dilation = 1, 
-       int groups = 1, 
-       bool bias = true) 
-    : inChannels(inChannels), 
-      outChannels(outChannels), 
-      kernelSize(kernelSize), 
-      stride(stride), 
-      padding(padding), 
-      paddingMode(paddingMode), 
-      dilation(dilation), 
-      groups(groups), 
-      bias(bias) {
-        
+        for(T& element : t.data){
+            do{
+                element = dist(generator);
+            }
+            while(element < aBound || element > bBound);
+        }
+    }
+
+    void seedRandom(){
+        unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+        generator.seed(seed);
+    }
+
+    Init(){
+        seedRandom();
     }
 };
-
 }
 #endif

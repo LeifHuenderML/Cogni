@@ -1,51 +1,71 @@
-/**
- * @file tensor.h
- * @author Leif Huender
- * @brief 
- * @version 0.1
- * @date 2024-01-05
- * 
- * @copyright Copyright (c) 2024 Leif Huender
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
 #ifndef TENSOR_H
 #define TENSOR_H
+
 #include <vector>
+#include <initializer_list>
+#include <cassert>
+#include <numeric>
 
 namespace nn {
-class Tensor{
+template<typename T>
+
+class Tensor {
 private:
+    std::vector<T> data;
+    std::vector<size_t> shape;
+    std::vector<size_t> strides;
 
-    std::vector<float> data;
-    
-    size_t totalSize(const std::vector<size_t>& dims);
-    size_t index(const std::vector<size_t>& dims);
+    size_t computeTotalSize(const std::vector<size_t>& dims) {
+        return std::accumulate(dims.begin(), dims.end(), 1, std::multiplies<size_t>());
+    }
+
+    void calculateStrides() {
+        strides.resize(shape.size());
+        size_t stride = 1;
+        for (int i = shape.size() - 1; i >= 0; --i) {
+            strides[i] = stride;
+            stride *= shape[i];
+        }
+    }
+
+    size_t index(const std::initializer_list<size_t>& idxs) const {
+        assert(idxs.size() == shape.size());
+        size_t idx = 0;
+        size_t i = 0;
+        for (auto ix : idxs) {
+            idx += ix * strides[i++];
+        }
+        return idx;
+    }
+
 public:
-    std::vector<size_t> dimensions;
-    float getElement(const std::vector<size_t>& dims);
-    void setElement(float element, const std::vector<size_t>& dims);
-    void fill(std::vector<float> input);
-    Tensor();
-    Tensor(std::vector<size_t> dims);
-    void resize(const std::vector<size_t>& dims);
-};
-}
+    Tensor(){};
 
-#endif
+    Tensor(const std::initializer_list<size_t>& dims) : shape(dims), data(computeTotalSize(dims), T()) {
+        calculateStrides();
+    }
+
+    T& operator()(const std::initializer_list<size_t>& idxs) {
+        return data[index(idxs)];
+    }
+
+    const T& operator()(const std::initializer_list<size_t>& idxs) const {
+        return data[index(idxs)];
+    }
+
+    void resize(const std::initializer_list<size_t>& newDims) {
+        shape = std::vector<size_t>(newDims);
+        data.resize(computeTotalSize(newDims));
+        calculateStrides();
+    }
+
+    void fill(const T& value){
+        std::fill(data.begin, data.end(), value);
+    }
+
+    
+};
+
+} // namespace nn
+
+#endif // TENSOR_H
